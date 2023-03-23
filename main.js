@@ -51,7 +51,7 @@ function update() {
 	var time = new Date();
 	var dt = (time - prevTime) / 1000; // on first iteration dt is NaN
 	if (dt == 0) return; // skip zero dt
-	dt = Math.min(dt, 1000 / frequency); // don't let dt be too big
+	dt = Math.min(dt, 2 * 1000 / frequency); // don't let dt be too big
 	prevTime = time;
 
 	if (isFinite(dt)) {
