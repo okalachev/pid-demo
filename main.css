@@ -4,7 +4,8 @@ body {
 	display: flex;
 	justify-content: space-around;
 	align-items: flex-start;
-	padding: 40px;
+	padding: 20px 40px;
+	margin: 0;
 }
 .canvas{
 	position: relative;
