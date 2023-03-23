@@ -1,0 +1,52 @@
+body {
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-start;
+	padding: 40px;
+}
+.canvas{
+	position: relative;
+	flex-grow: 1;
+	flex-basis: 100%;
+}
+a {
+	text-decoration: none;
+	color: rgb(71, 97, 199);
+}
+fieldset {
+	border: 2px solid rgb(219, 219, 219);
+	margin: 15px 0;
+}
+fieldset legend {
+	font-size: 20px;
+}
+#object {
+	position: absolute;
+	left: 500px;
+	top: 210px;
+	width: 30px;
+	height: 30px;
+	background-color: rgb(239, 180, 30);
+	transform: translateX(-50%) translateY(-50%);
+}
+#setpoint {
+	position: absolute;
+	width: 2px;
+	background-color: rgb(153, 153, 153);
+	height: 300px;
+	left: 500px;
+	top: 60px;
+	transform: translateX(-50%);
+}
+input[type=range] {
+	width: 500px;
+	display: block;
+}
+form label {
+	user-select: none;
+}
+.color-p { color: red; }
+.color-i { color: green; }
+.color-d { color: blue }

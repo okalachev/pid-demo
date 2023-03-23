@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title>PID Controller Demo</title>
+		<link rel="stylesheet" href="main.css">
+		<meta name="keywords" content="PID, proportional, integral, derivative, controller, control loop, control theory">
+		<meta property="og:url" content="https://chev.me/pid-demo"/>
+		<meta property="og:type" content="website"/>
+		<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter37286925 = new Ya.Metrika({ id:37286925, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/37286925" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+	</head>
+	<body>
+		<div class="canvas">
+			<div id="object"></div>
+			<div id="setpoint"></div>
+		</div>
+		<form class="setup">
+			<fieldset>
+				<legend>Model</legend>
+				<label>
+					Time constant: <input name="time-constant" type="range" min="0" max="5" step="0.1" value="1" width="300">
+				</label>
+				<label>
+					Asymmetry: <input name="asymmetry" type="range" min="-2" max="2" step="0.1" value="0" width="300">
+				</label>
+			</fieldset>
+			<fieldset>
+				<legend>Input</legend>
+				<label>
+					Setpoint: <input name="setpoint" type="range" min="-5" max="5" step="0.1" width="300">
+				</label>
+			</fieldset>
+			<fieldset>
+				<legend>Controller</legend>
+				<label class="color-p">
+					P: <input name="kp" id="frm-kp" type="range" min="0" max="10" step="0.1" value="1" width="300">
+				</label>
+				<label class="color-i">
+					I: <input name="ki" id="frm-ki" type="range" min="0" max="10" step="0.1" value="0" width="300">
+				</label>
+				<label class="color-d">
+					D: <input name="kd" id="frm-kd" type="range" min="0" max="10" step="0.1" value="0" width="300">
+				</label>
+			</fieldset>
+			<fieldset>
+				<legend>Info</legend>
+				<a href="https://github.com/okalachev/pid-demo">Source code</a>
+				<div style="float: right">Author: <a href="https://chev.me">Oleg Kalachev</a></div>
+			</fieldset>
+		</form>
+		<script type="module" src="main.js"></script>
+	</body>
+</html>
