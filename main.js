@@ -14,7 +14,6 @@ var windup;
 var x = -2; // process value
 var vx = 0; // process value change rate
 var prevTime = NaN;
-var desiredU = 0;
 var controlAction = 0; // control action
 var prevError = NaN;
 var integral = 0;
