@@ -54,7 +54,7 @@ function update() {
 	prevTime = time;
 
 	if (isFinite(dt)) {
-		// apply control action
+		// apply control action form previous iteration
 		vx = controlAction + asymmetry;
 		x = x + vx * dt;
 	}
