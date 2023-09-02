@@ -43,7 +43,7 @@ function readParameters() {
 	kp = readValue('input[name=kp]', 'P');
 	ki = readValue('input[name=ki]', 'I');
 	kd = readValue('input[name=kd]', 'D');
-	windup = ki; // let windup be equal to ki for simplicity
+	windup = 3; // slightly more than max asymmetry
 }
 
 function update() {
@@ -65,14 +65,15 @@ function update() {
 	var derivative = 0;
 
 	if (isFinite(dt)) {
-		integral += error * dt;
+		integral += ki * error * dt;
+		integral = constrain(integral, -windup, windup);
 		derivative = (error - prevError) / dt;
 	}
 
 	prevError = error;
 
 	// calculate control action
-	var controlActionInput = kp * error + constrain(ki * integral, -windup, windup) + kd * derivative;
+	var controlActionInput = kp * error + integral + kd * derivative;
 
 	if (!isFinite(dt) || timeConstant == 0) {
 		// first iteration or time constant is zero
