@@ -32,6 +32,14 @@ fieldset legend {
 	background-color: rgb(239, 180, 30);
 	transform: translateX(-50%) translateY(-50%);
 }
+.gain {
+	position: absolute;
+	height: 5px;
+	transform: translateX(15px);
+}
+#gain-p { background-color: rgb(255, 97, 97); }
+#gain-i { background-color: rgb(0, 255, 0); top: 50%; transform: translate(15px, -50%); }
+#gain-d { background-color: rgb(0, 115, 255); bottom: 0; }
 #setpoint {
 	position: absolute;
 	width: 2px;

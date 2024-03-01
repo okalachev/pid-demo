@@ -14,6 +14,9 @@ var windup;
 var x = -2; // process value
 var vx = 0; // process value change rate
 var prevTime = NaN;
+var pTerm = 0; // proportional term
+var iTerm = 0; // integral term
+var dTerm = 0; // derivative term
 var controlAction = 0; // control action
 var prevError = NaN;
 var integral = 0;
@@ -33,8 +36,12 @@ function constrain(value, min, max) {
 	return Math.min(Math.max(value, min), max);
 }
 
+var canvasEl = document.querySelector('.canvas');
 var objectEl = document.getElementById('object');
 var setpointEl = document.getElementById('setpoint');
+var gainPEl = document.getElementById('gain-p');
+var gainIEl = document.getElementById('gain-i');
+var gainDEl = document.getElementById('gain-d');
 
 function readParameters() {
 	asymmetry = readValue('input[name=asymmetry]', 'Asymmetry');
@@ -55,8 +62,10 @@ function update() {
 
 	if (isFinite(dt)) {
 		// apply control action form previous iteration
-		vx = controlAction + asymmetry;
-		x = x + vx * dt;
+		// FIXME:
+		// vx = controlAction + asymmetry;
+		// x = x + vx * dt;
+		x = controlAction + asymmetry;
 	}
 
 	readParameters();
@@ -73,6 +82,10 @@ function update() {
 	prevError = error;
 
 	// calculate control action
+	pTerm = kp * error;
+	iTerm = integral;
+	dTerm = kd * derivative;
+	var controlActionInput = pTerm + iTerm + dTerm;
 	var controlActionInput = kp * error + integral + kd * derivative;
 
 	if (!isFinite(dt) || timeConstant == 0) {
@@ -86,10 +99,38 @@ function update() {
 	updateScene();
 }
 
+function updateGain(el, value) {
+	var limit = 12; // TODO:
+	var canvasWidth = canvasEl.clientWidth;
+	if (value >= 0) {
+		el.style.left = 0;
+		el.style.width = value * canvasWidth / limit;
+	} else {
+		el.style.left = value * canvasWidth / limit;
+		el.style.width = -value * canvasWidth / limit;
+	}
+}
+
 function updateScene() {
 	var limit = 12;
 	objectEl.style.left = 50 + x * 100 / limit + '%';
 	setpointEl.style.left = 50 + setpoint * 100 / limit + '%';
+
+	updateGain(gainPEl, pTerm);
+	updateGain(gainIEl, iTerm);
+	updateGain(gainDEl, dTerm);
+}
+
+var stepInputHigh = true;
+var stepInputEl = document.querySelector('input[name=step-input]');
+var setpointInputEl = document.querySelector('input[name=setpoint]');
+
+function stepInput() {
+	if (stepInputEl.checked) {
+		setpointInputEl.value = stepInputHigh ? -1 : 1;
+		stepInputHigh = !stepInputHigh;
+	}
 }
 
 window.setInterval(update, 1000 / frequency);
+window.setInterval(stepInput, 3000);
